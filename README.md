@@ -1,0 +1,1 @@
+# typescript_decorator_sample
