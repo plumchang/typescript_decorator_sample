@@ -1,20 +1,30 @@
+// デコレータファクトリ
 function methodDecoratorFactorySample(str: string) {
-  console.log(`メソッドデコレータファクトリが呼ばれました: ${str}`);
+  //console.log(`メソッドデコレータファクトリが呼ばれました: ${str}`);
 
+  // デコレータ関数を返す
   return function (
     target: any,
     propertyKey: string,
     descriptor: PropertyDescriptor
   ) {
-    console.log(`メソッドデコレータが呼ばれました: ${str}`);
+    // console.log(`メソッドデコレータが呼ばれました: ${str}`);
 
-    console.log(target);
+    // target引数の確認
+    // console.log(target);
+    // インスタンスメンバのメソッドの場合
+    // var tmp = new target.constructor("こんばんは");
+    // tmp.printStr();
+    // staticメソッドの場合
+    // var tmp = new target("こんばんは");
+    // tmp.printStr();
 
-    descriptor.value = () => {
-      console.log(`対象のメソッドが呼ばれました: ${str}`);
-    };
+    // propertyKeyの確認
+    console.log(propertyKey);
 
-    return descriptor;
+    //descriptor.value = () => {
+    //console.log(`対象のメソッドが呼ばれました: ${str}`);
+    //};
   };
 }
 
@@ -25,11 +35,16 @@ class SampleClass {
     this.str = str;
   }
 
+  @methodDecoratorFactorySample("")
+  static printHello() {
+    console.log("Hello from static method");
+  }
+
   @methodDecoratorFactorySample("おはよう")
   printStr() {
     console.log(this.str);
   }
 }
 
-var sampleClass = new SampleClass("こんにちは");
-sampleClass.printStr();
+// var sampleClass = new SampleClass("こんにちは");
+//sampleClass.printStr();
